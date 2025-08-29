@@ -1,0 +1,24 @@
+import whisper
+import os
+
+# Caminho para o seu arquivo de áudio ou vídeo
+caminho_arquivo = "seu_audio.mp4"  # Altere aqui para o nome do seu arquivo
+
+# Carrega o modelo (você pode trocar 'base' por 'small', 'medium' ou 'large' se quiser mais precisão)
+print("Carregando o modelo Whisper...")
+modelo = whisper.load_model("base")
+
+# Transcreve o áudio
+print(f"Transcrevendo: {caminho_arquivo}")
+resultado = modelo.transcribe(caminho_arquivo, language="Portuguese")
+
+# Mostra a transcrição no terminal
+print("\nTranscrição:")
+print(resultado["text"])
+
+# Salva em um arquivo .txt
+nome_txt = os.path.splitext(caminho_arquivo)[0] + "_transcricao.txt"
+with open(nome_txt, "w", encoding="utf-8") as f:
+    f.write(resultado["text"])
+
+print(f"\n✅ Transcrição salva em: {nome_txt}")
